@@ -308,14 +308,47 @@ a{color:inherit;text-decoration:none}
         <li>📍Maroc </li>
       </ul>
     </div>
-    <form class="card form reveal" id="contactForm">
-      <input type="text" id="fName" placeholder="Votre nom" required>
-      <input type="email" id="fEmail" placeholder="Votre email" required>
-      <input type="text" id="fSubject" placeholder="Sujet" required>
-      <textarea id="fMsg" rows="5" placeholder="Votre message" required></textarea>
-      <button class="btn primary" type="submit">Envoyer le message</button>
-      <small id="formNote"></small>
-    </form>
+    <form class="card form reveal"
+      id="contactForm"
+      action="https://api.web3forms.com/submit"
+      method="POST">
+
+<input type="hidden"
+      name="access_key"
+      value="02904f56-3ab4-4a2e-969f-b5704ccb0428">
+
+<input type="text"
+      id="fName"
+      name="name"
+      placeholder="Votre nom"
+      required>
+
+<input type="email"
+      id="fEmail"
+      name="email"
+      placeholder="Votre email"
+      required>
+
+<input type="text"
+      id="fSubject"
+      name="subject"
+      placeholder="Sujet"
+      required>
+
+  <textarea id="fMsg"
+            name="message"
+            rows="5"
+            placeholder="Votre message"
+            required></textarea>
+
+  <button class="btn primary" type="submit">
+    Envoyer le message
+  </button>
+
+<small id="formNote"></small>
+
+</form>
+
   </div>
 </section>
 
@@ -451,14 +484,44 @@ tb.onclick = () => {
   document.documentElement.dataset.theme = n; try { localStorage.setItem("theme", n); } catch (e) {} syncIcon();
 };
 
-/* Formulaire de contact -> ouvre l'application mail */
-const MY_EMAIL = "votre.email@gmail.com"; // <-- remplacez par votre email
-$("#contactForm").addEventListener("submit", e => {
+/* Formulaire de contact -> Web3Forms */
+$("#contactForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const body = `Nom: ${$("#fName").value}\nEmail: ${$("#fEmail").value}\n\n${$("#fMsg").value}`;
-  location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent($("#fSubject").value)}&body=${encodeURIComponent(body)}`;
-  $("#formNote").textContent = "Merci ! Votre application mail va s'ouvrir.";
+
+  const form = e.target;
+  const formNote = $("#formNote");
+  const button = form.querySelector("button[type='submit']");
+
+  button.disabled = true;
+  button.textContent = "Envoi...";
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: {
+        Accept: "application/json"
+      }
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      formNote.textContent = "Merci ! Votre message a bien été envoyé.";
+      form.reset();
+    } else {
+      formNote.textContent = "Une erreur est survenue. Veuillez réessayer.";
+    }
+
+  } catch (error) {
+    formNote.textContent = "Impossible d'envoyer le message. Veuillez réessayer.";
+  }
+
+  button.disabled = false;
+  button.textContent = "Envoyer le message";
 });
+
+$("#year").textContent = new Date().getFullYear();
 
 $("#year").textContent = new Date().getFullYear();
 
