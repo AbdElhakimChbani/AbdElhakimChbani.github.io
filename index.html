@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHBANI ABDELHAKIM | Développeur Full-Stack</title>
+<meta name="description" content="Portfolio de CHBANI ABDELHAKIM, développeur Full-Stack : sites web, applications, API et bases de données.">
+<meta property="og:title" content="CHBANI ABDELHAKIM | Développeur Full-Stack">
+<meta property="og:description" content="Découvrez mes projets, compétences et parcours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#070b17;--bg2:#0d1326;--card:rgba(255,255,255,.04);--bd:rgba(255,255,255,.09);
+  --tx:#e8ecf8;--mut:#98a2c3;--a:#7c5cff;--b:#22d3ee;--c:#ff5ca8;
+  --grad:linear-gradient(135deg,var(--a),var(--b));
+}
+[data-theme="light"]{
+  --bg:#f6f7fc;--bg2:#eceffa;--card:#fff;--bd:rgba(20,30,70,.1);--tx:#141a33;--mut:#586086;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{width:min(1150px,92%);margin:auto}
+.loader{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:99;transition:.6s}
+.loader span{font:700 2.4rem 'Space Grotesk';background:var(--grad);-webkit-background-clip:text;color:transparent;animation:pulse 1s infinite alternate}
+.loader.hide{opacity:0;visibility:hidden}
+@keyframes pulse{to{transform:scale(1.12);opacity:.6}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 5%;transition:.3s}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+.logo{font:700 1.4rem 'Space Grotesk'}.logo span{color:var(--b)}
+.nav nav{display:flex;gap:28px}
+.nav nav a{color:var(--mut);font-weight:500;font-size:.95rem;position:relative;transition:.2s}
+.nav nav a:hover,.nav nav a.active{color:var(--tx)}
+.nav nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--grad);border-radius:2px}
+.nav-actions{display:flex;gap:10px}
+.nav-actions button{background:var(--card);border:1px solid var(--bd);color:var(--tx);width:40px;height:40px;border-radius:12px;cursor:pointer;font-size:1rem}
+#burger{display:none}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:70px;
+  background:radial-gradient(1200px 600px at 80% 10%,rgba(124,92,255,.18),transparent),var(--bg)}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
+#bgCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;animation:float 9s ease-in-out infinite alternate}
+.g1{width:340px;height:340px;background:var(--a);top:8%;left:-80px}
+.g2{width:300px;height:300px;background:var(--b);bottom:5%;right:5%;animation-delay:-4s}
+@keyframes float{to{transform:translate(40px,-40px) scale(1.1)}}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center}
+.chip{display:inline-block;padding:7px 16px;border:1px solid var(--bd);background:var(--card);border-radius:99px;font-size:.88rem;color:var(--mut);margin-bottom:18px}
+.hero h1{font:700 clamp(2.2rem,5vw,3.8rem)/1.1 'Space Grotesk'}
+.hero h2{font:500 clamp(1.3rem,2.6vw,1.9rem) 'Space Grotesk';margin:12px 0 18px;color:var(--mut)}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad2{color:var(--b)}
+.caret{display:inline-block;width:3px;height:1.2em;background:var(--b);margin-left:4px;vertical-align:-4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lead{max-width:560px;color:var(--mut)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 22px}
+.btn{padding:13px 26px;border-radius:14px;font-weight:600;border:1px solid var(--bd);cursor:pointer;font-size:.95rem;transition:.25s;display:inline-block}
+.btn.primary{background:var(--grad);color:#fff;border:0;box-shadow:0 10px 30px -8px var(--a)}
+.btn.ghost{background:var(--card);color:var(--tx)}
+.btn:hover{transform:translateY(-3px)}
+.socials{display:flex;gap:18px}
+.socials a{color:var(--mut);font-size:.9rem;border-bottom:1px dashed var(--bd)}.socials a:hover{color:var(--b)}
+.hero-photo{position:relative;justify-self:center;width:min(380px,80vw);aspect-ratio:1}
+.ring{position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(var(--a),var(--b),var(--c),var(--a));animation:spin 8s linear infinite;filter:blur(2px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo-wrap{position:absolute;inset:0;border-radius:50%;overflow:hidden;border:6px solid var(--bg);background:var(--bg2)}
+.photo-wrap img{width:100%;height:100%;object-fit:cover}
+.photo-fallback{display:none;place-items:center;width:100%;height:100%;font:700 5rem 'Space Grotesk';background:var(--grad);color:#fff}
+.float{position:absolute;padding:8px 14px;background:var(--card);border:1px solid var(--bd);backdrop-filter:blur(10px);border-radius:12px;font-size:.85rem;font-weight:600;animation:float 5s ease-in-out infinite alternate}
+.f1{top:6%;left:-10%}.f2{bottom:14%;left:-14%;animation-delay:-2s}.f3{top:30%;right:-12%;animation-delay:-3s}
+.scroll{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--mut);font-size:.8rem;animation:float 2s infinite alternate}
+
+/* SECTIONS */
+.section{padding:100px 0}.alt{background:var(--bg2)}
+.tag{color:var(--b);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;margin-bottom:10px}
+.title{font:700 clamp(1.7rem,3.4vw,2.6rem)/1.2 'Space Grotesk';margin-bottom:20px}
+.center{text-align:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.grid2 p{color:var(--mut);margin-bottom:14px}
+.info{list-style:none;margin-top:18px;display:grid;gap:8px}
+.info li{color:var(--mut)}.info b{color:var(--tx)}.info a:hover{color:var(--b)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.stat{padding:30px 20px;text-align:center;background:var(--card);border:1px solid var(--bd);border-radius:20px;transition:.3s}
+.stat:hover{transform:translateY(-6px);border-color:var(--a)}
+.stat b{font:700 2.6rem 'Space Grotesk';background:var(--grad);-webkit-background-clip:text;color:transparent}
+.stat b::after{content:"+"}
+.stat span{display:block;color:var(--mut);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:28px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:40px}
+.card h4{margin-bottom:18px;font-size:1.15rem}
+.bar{margin-bottom:16px}
+.bar label{font-size:.88rem;color:var(--mut);display:block;margin-bottom:6px}
+.bar i{display:block;height:8px;border-radius:9px;background:var(--bd);position:relative;overflow:hidden}
+.bar i::after{content:"";position:absolute;inset:0;width:0;background:var(--grad);border-radius:9px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.bar.on i::after{width:var(--w)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:36px}
+.chips span{padding:8px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--card);font-size:.88rem;transition:.2s}
+.chips span:hover{background:var(--grad);color:#fff;transform:translateY(-3px)}
+
+/* PROJECTS */
+.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
+.filters button{padding:9px 22px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--mut);cursor:pointer;font-weight:500;transition:.2s}
+.filters button.active,.filters button:hover{background:var(--grad);color:#fff;border-color:transparent}
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:26px}
+.project{background:var(--card);border:1px solid var(--bd);border-radius:22px;overflow:hidden;transition:.35s;display:flex;flex-direction:column}
+.project:hover{transform:translateY(-8px);border-color:var(--a);box-shadow:0 24px 50px -20px var(--a)}
+.project .thumb{height:180px;display:grid;place-items:center;font-size:3.4rem;position:relative}
+.project .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.project .body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.project h4{font-size:1.15rem}
+.project p{color:var(--mut);font-size:.92rem;flex:1}
+.tech{display:flex;flex-wrap:wrap;gap:6px}
+.tech span{font-size:.74rem;padding:4px 10px;border-radius:8px;background:var(--bd);color:var(--b)}
+.links{display:flex;gap:10px;margin-top:6px}
+.links a{font-size:.85rem;font-weight:600;padding:8px 16px;border-radius:10px;border:1px solid var(--bd)}
+.links a:first-child{background:var(--grad);color:#fff;border:0}
+.project.hide{display:none}
+
+/* TIMELINE */
+.timeline{max-width:760px;margin:50px auto 0;position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--grad)}
+.t-item{position:relative;margin-bottom:34px;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:22px 26px}
+.dot{position:absolute;left:-34px;top:26px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:4px solid var(--b)}
+.t-item small{color:var(--b);font-weight:600}
+.t-item h4{margin:4px 0 6px}.t-item p{color:var(--mut);font-size:.93rem}
+
+/* FORM */
+.form{display:grid;gap:14px}
+.form input,.form textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;outline:none;transition:.2s}
+.form input:focus,.form textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(124,92,255,.2)}
+.form small{color:var(--b)}
+.footer{display:flex;justify-content:space-between;align-items:center;padding:28px 5%;border-top:1px solid var(--bd);color:var(--mut);font-size:.9rem}
+.top{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--grad);color:#fff}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(34px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  .hero-inner,.grid2{grid-template-columns:1fr}
+  .hero-photo{order:-1;width:240px;margin-top:20px}
+  .hero-text{text-align:center}.lead{margin:auto}.cta,.socials{justify-content:center}
+  .f1,.f2,.f3{display:none}
+  #burger{display:block}
+  .nav nav{position:fixed;top:68px;right:-100%;flex-direction:column;background:var(--bg2);padding:24px 36px;border-radius:0 0 0 20px;border:1px solid var(--bd);transition:.35s}
+  .nav nav.open{right:0}
+  .footer{flex-direction:column;gap:14px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader"><span>&lt;CA /&gt;</span></div>
+
+<header class="nav" id="nav">
+  <a href="#home" class="logo">&lt;CA<span>/</span>&gt;</a>
+  <nav id="menu">
+    <a href="#about">À propos</a>
+    <a href="#skills">Compétences</a>
+    <a href="#projects">Projets</a>
+    <a href="#experience">Parcours</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-actions">
+    <button id="themeBtn" aria-label="Changer de thème">🌙</button>
+    <button id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO avec fond animé style "IA" (vidéo optionnelle : assets/hero.mp4) -->
+<section id="home" class="hero">
+  <video class="bg-video" id="bgVideo" autoplay muted loop playsinline preload="none">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <canvas id="bgCanvas"></canvas>
+  <div class="hero-glow g1"></div><div class="hero-glow g2"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="chip">👋 Bienvenue sur mon portfolio</p>
+      <h1>Je suis <span class="grad">CHBANI ABDELHAKIM</span></h1>
+      <h2>Développeur <span id="typing" class="grad2"></span><i class="caret"></i></h2>
+      <p class="lead">Je conçois et développe des applications web modernes, rapides et sécurisées, du design de l'interface jusqu'à la base de données et au déploiement.</p>
+      <div class="cta">
+        <a href="#projects" class="btn primary">Voir mes projets</a>
+        <a href="#contact" class="btn ghost">Me contacter</a>
+        <a href="assets/CV-CHBANI-ABDELHAKIM.pdf" class="btn ghost" download>Télécharger CV</a>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <div class="ring"></div>
+      <div class="photo-wrap">
+        <img src="assets/photo.jpg" alt="Photo de CHBANI ABDELHAKIM"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="photo-fallback">CA</div>
+      </div>
+      <div class="float f1">⚛️ React</div>
+      <div class="float f2">🟢 Node.js</div>
+      <div class="float f3">🐍 Python</div>
+    </div>
+  </div>
+  <a href="#about" class="scroll">scroll ↓</a>
+</section>
+
+<section id="about" class="section">
+  <div class="container grid2">
+    <div class="reveal">
+      <h3 class="tag">À propos</h3>
+      <h2 class="title">Passionné par le code et les produits bien faits</h2>
+      <p>Développeur Full-Stack, je transforme des idées en applications web complètes : interfaces élégantes côté front-end, API robustes côté back-end, et bases de données bien structurées.</p>
+      <p>J'aime apprendre en continu, travailler en équipe et livrer du code propre, maintenable et performant.</p>
+      <ul class="info">
+        <li><b>Nom :</b> CHBANI ABDELHAKIM</li>
+        <li><b>Métier :</b> Développeur Full-Stack</li>
+        <li><b>Ville :</b> Maroc 🇲🇦</li>
+        <li><b>Email :</b> <a href="mailto:votre.email@gmail.com">votre.email@gmail.com</a></li>
+        <li><b>Langues :</b> Arabe, Français, Anglais</li>
+        <li><b>Disponibilité :</b> Freelance / CDI / Stage</li>
+      </ul>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><b data-count="25">0</b><span>Projets réalisés</span></div>
+      <div class="stat"><b data-count="3">0</b><span>Années d'expérience</span></div>
+      <div class="stat"><b data-count="15">0</b><span>Clients satisfaits</span></div>
+      <div class="stat"><b data-count="10">0</b><span>Technologies</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section alt">
+  <div class="container">
+    <h3 class="tag center">Compétences</h3>
+    <h2 class="title center">Ma stack technique</h2>
+    <div class="skills-grid">
+      <div class="card reveal"><h4>🎨 Front-end</h4><div class="bars">
+        <div class="bar" data-v="95"><label>HTML5 / CSS3</label><i></i></div>
+        <div class="bar" data-v="90"><label>JavaScript / TypeScript</label><i></i></div>
+        <div class="bar" data-v="85"><label>React / Next.js</label><i></i></div>
+        <div class="bar" data-v="80"><label>Tailwind / Bootstrap</label><i></i></div></div></div>
+      <div class="card reveal"><h4>⚙️ Back-end</h4><div class="bars">
+        <div class="bar" data-v="88"><label>Node.js / Express</label><i></i></div>
+        <div class="bar" data-v="80"><label>PHP / Laravel</label><i></i></div>
+        <div class="bar" data-v="75"><label>Python / Django</label><i></i></div>
+        <div class="bar" data-v="85"><label>API REST / JWT</label><i></i></div></div></div>
+      <div class="card reveal"><h4>🗄️ Base de données & Outils</h4><div class="bars">
+        <div class="bar" data-v="85"><label>MySQL / PostgreSQL</label><i></i></div>
+        <div class="bar" data-v="80"><label>MongoDB</label><i></i></div>
+        <div class="bar" data-v="90"><label>Git / GitHub</label><i></i></div>
+        <div class="bar" data-v="70"><label>Docker / CI-CD</label><i></i></div></div></div>
+    </div>
+    <div class="chips reveal">
+      <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>Node.js</span><span>PHP</span>
+      <span>Laravel</span><span>Python</span><span>MySQL</span><span>MongoDB</span><span>Git</span><span>Docker</span><span>Figma</span>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="container">
+    <h3 class="tag center">Espace projets</h3>
+    <h2 class="title center">Mes réalisations</h2>
+    <div class="filters" id="filters">
+      <button class="active" data-f="all">Tous</button>
+      <button data-f="web">Web</button>
+      <button data-f="fullstack">Full-Stack</button>
+      <button data-f="api">API</button>
+      <button data-f="ui">UI / Design</button>
+    </div>
+    <div class="projects" id="projects-grid"></div>
+  </div>
+</section>
+
+<section id="experience" class="section alt">
+  <div class="container">
+    <h3 class="tag center">Parcours</h3>
+    <h2 class="title center">Expérience & Formation</h2>
+    <div class="timeline">
+      <div class="t-item reveal"><span class="dot"></span><small>2024 — Présent</small><h4>Développeur Full-Stack Freelance</h4><p>Création de sites et d'applications web sur mesure pour des clients locaux et internationaux.</p></div>
+      <div class="t-item reveal"><span class="dot"></span><small>2023 — 2024</small><h4>Stage Développeur Web</h4><p>Développement de fonctionnalités front-end et back-end, travail en méthode Agile.</p></div>
+      <div class="t-item reveal"><span class="dot"></span><small>2021 — 2023</small><h4>Diplôme en Développement Digital</h4><p>Formation en programmation, bases de données, réseaux et gestion de projet.</p></div>
+      <div class="t-item reveal"><span class="dot"></span><small>Certifications</small><h4>Certificats en ligne</h4><p>JavaScript, React, Node.js, Git &amp; GitHub, UI/UX (à compléter).</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container grid2">
+    <div class="reveal">
+      <h3 class="tag">Contact</h3>
+      <h2 class="title">Travaillons ensemble !</h2>
+      <p>Vous avez un projet, une idée ou une opportunité ? Écrivez-moi, je réponds rapidement.</p>
+      <ul class="info">
+        <li>📧 <a href="mailto:votre.email@gmail.com">votre.email@gmail.com</a></li>
+        <li>📱 <a href="tel:+212600000000">+212 6 00 00 00 00</a></li>
+        <li>📍 Maroc</li>
+      </ul>
+    </div>
+    <form class="card form reveal" id="contactForm">
+      <input type="text" id="fName" placeholder="Votre nom" required>
+      <input type="email" id="fEmail" placeholder="Votre email" required>
+      <input type="text" id="fSubject" placeholder="Sujet" required>
+      <textarea id="fMsg" rows="5" placeholder="Votre message" required></textarea>
+      <button class="btn primary" type="submit">Envoyer le message</button>
+      <small id="formNote"></small>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© <span id="year"></span> CHBANI ABDELHAKIM — Développeur Full-Stack. Tous droits réservés.</p>
+  <a href="#home" class="top">↑</a>
+</footer>
+
+<script>
+/* ===== MES PROJETS : modifiez cette liste ===== */
+const PROJECTS = [
+  { title: "E-Commerce Full-Stack", cat: "fullstack", icon: "🛒",
+    desc: "Boutique en ligne complète : panier, paiement, tableau de bord administrateur.",
+    tech: ["React", "Node.js", "MongoDB"], demo: "#", code: "#" },
+  { title: "Application de Gestion", cat: "fullstack", icon: "📊",
+    desc: "Gestion de clients, factures et statistiques avec authentification sécurisée.",
+    tech: ["Laravel", "MySQL", "Bootstrap"], demo: "#", code: "#" },
+  { title: "API REST Sécurisée", cat: "api", icon: "🔌",
+    desc: "API documentée avec JWT, rôles utilisateurs et tests automatisés.",
+    tech: ["Express", "JWT", "PostgreSQL"], demo: "#", code: "#" },
+  { title: "Site Vitrine Entreprise", cat: "web", icon: "🌐",
+    desc: "Site responsive, rapide et optimisé SEO pour une entreprise locale.",
+    tech: ["HTML", "CSS", "JavaScript"], demo: "#", code: "#" },
+  { title: "Chat en Temps Réel", cat: "fullstack", icon: "💬",
+    desc: "Messagerie instantanée avec salons, notifications et historique.",
+    tech: ["Socket.io", "Node.js", "React"], demo: "#", code: "#" },
+  { title: "Maquette UI Dashboard", cat: "ui", icon: "🎨",
+    desc: "Conception d'un dashboard moderne : design system, mode sombre, composants.",
+    tech: ["Figma", "CSS", "UX"], demo: "#", code: "#" }
+];
+/* Pour une image de projet : ajoutez  img: "assets/projet1.jpg"  dans l'objet */
+
+const $ = (s, p = document) => p.querySelector(s);
+const $$ = (s, p = document) => [...p.querySelectorAll(s)];
+
+/* Loader */
+window.addEventListener("load", () => setTimeout(() => $("#loader").classList.add("hide"), 500));
+
+/* Projets */
+const grid = $("#projects-grid");
+const gradients = ["#7c5cff,#22d3ee", "#ff5ca8,#7c5cff", "#22d3ee,#34d399", "#f59e0b,#ff5ca8"];
+grid.innerHTML = PROJECTS.map((p, i) => `
+  <article class="project reveal" data-cat="${p.cat}">
+    <div class="thumb" style="background:linear-gradient(135deg,${gradients[i % 4]})">
+      ${p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` : p.icon}
+    </div>
+    <div class="body">
+      <h4>${p.title}</h4><p>${p.desc}</p>
+      <div class="tech">${p.tech.map(t => `<span>${t}</span>`).join("")}</div>
+      <div class="links"><a href="${p.demo}" target="_blank" rel="noopener">Démo</a><a href="${p.code}" target="_blank" rel="noopener">Code</a></div>
+    </div>
+  </article>`).join("");
+
+$("#filters").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  $$("#filters button").forEach(x => x.classList.toggle("active", x === b));
+  $$(".project").forEach(c => c.classList.toggle("hide", b.dataset.f !== "all" && c.dataset.cat !== b.dataset.f));
+});
+
+/* Effet machine à écrire */
+const words = ["Full-Stack", "Front-End", "Back-End", "Web & Mobile"];
+let wi = 0, ci = 0, del = false;
+(function type() {
+  const w = words[wi], el = $("#typing");
+  el.textContent = w.slice(0, ci);
+  if (!del && ci++ === w.length) { del = true; return setTimeout(type, 1400); }
+  if (del && --ci === 0) { del = false; wi = (wi + 1) % words.length; }
+  setTimeout(type, del ? 45 : 90);
+})();
+
+/* Fond animé "réseau neuronal IA" (effet vidéo) */
+const cv = $("#bgCanvas"), cx = cv.getContext("2d");
+let W, H, pts = [], mouse = { x: -999, y: -999 };
+function resize() {
+  W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight;
+  pts = Array.from({ length: Math.min(110, Math.floor(W / 14)) }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - .5) * .6, vy: (Math.random() - .5) * .6, r: Math.random() * 2 + 1 }));
+}
+addEventListener("resize", resize); resize();
+cv.parentElement.addEventListener("mousemove", e => { const r = cv.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; });
+(function draw() {
+  cx.clearRect(0, 0, W, H);
+  for (const p of pts) {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1;
+    cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.28); cx.fillStyle = "rgba(34,211,238,.8)"; cx.fill();
+  }
+  for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+    const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+    if (d < 130) { cx.strokeStyle = `rgba(124,92,255,${(1 - d / 130) * .5})`; cx.lineWidth = 1;
+      cx.beginPath(); cx.moveTo(pts[i].x, pts[i].y); cx.lineTo(pts[j].x, pts[j].y); cx.stroke(); }
+  }
+  for (const p of pts) { const d = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+    if (d < 170) { cx.strokeStyle = `rgba(255,92,168,${(1 - d / 170) * .7})`; cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(mouse.x, mouse.y); cx.stroke(); } }
+  requestAnimationFrame(draw);
+})();
+
+/* Vidéo de fond : s'affiche seulement si assets/hero.mp4 existe */
+const vid = $("#bgVideo");
+fetch("assets/hero.mp4", { method: "HEAD" }).then(r => { if (r.ok) { vid.preload = "auto"; vid.load(); vid.play().catch(() => {}); } else vid.remove(); }).catch(() => vid.remove());
+
+/* Révélation au scroll + barres + compteurs */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("in");
+  $$(".bar", e.target).forEach(b => { b.style.setProperty("--w", b.dataset.v + "%"); b.classList.add("on"); });
+  $$("[data-count]", e.target).forEach(n => {
+    const t = +n.dataset.count; let c = 0;
+    const id = setInterval(() => { c += Math.ceil(t / 40); if (c >= t) { c = t; clearInterval(id); } n.textContent = c; }, 40);
+  });
+  io.unobserve(e.target);
+}), { threshold: .15 });
+$$(".reveal").forEach(el => io.observe(el));
+
+/* Navigation */
+const nav = $("#nav"), menu = $("#menu");
+addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 30));
+$("#burger").onclick = () => menu.classList.toggle("open");
+$$("#menu a").forEach(a => a.onclick = () => menu.classList.remove("open"));
+const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting)
+  $$("#menu a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id)); }),
+  { rootMargin: "-45% 0px -50% 0px" });
+$$("section[id]").forEach(s => spy.observe(s));
+
+/* Thème clair / sombre */
+const tb = $("#themeBtn");
+try { const s = localStorage.getItem("theme"); if (s) document.documentElement.dataset.theme = s; } catch (e) {}
+const syncIcon = () => tb.textContent = document.documentElement.dataset.theme === "light" ? "☀️" : "🌙";
+syncIcon();
+tb.onclick = () => {
+  const n = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = n; try { localStorage.setItem("theme", n); } catch (e) {} syncIcon();
+};
+
+/* Formulaire de contact -> ouvre l'application mail */
+const MY_EMAIL = "votre.email@gmail.com"; // <-- remplacez par votre email
+$("#contactForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const body = `Nom: ${$("#fName").value}\nEmail: ${$("#fEmail").value}\n\n${$("#fMsg").value}`;
+  location.href = `mailto:${MY_EMAIL}?subject=${encodeURIComponent($("#fSubject").value)}&body=${encodeURIComponent(body)}`;
+  $("#formNote").textContent = "Merci ! Votre application mail va s'ouvrir.";
+});
+
+$("#year").textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
